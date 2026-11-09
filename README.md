@@ -79,7 +79,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.github.venshine:CheckPasswordStrength:2.0.0'
+    implementation 'com.github.venshine:CheckPasswordStrength:2.1.0'
 }
 ```
 
@@ -90,12 +90,14 @@ repositories {
 }
 
 dependencies {
-    implementation("com.github.venshine:CheckPasswordStrength:2.0.0")
+    implementation("com.github.venshine:CheckPasswordStrength:2.1.0")
 }
 ```
 
 ##### Jar:
-[Download the jar](https://github.com/venshine/CheckPasswordStrength/releases/download/2.0.0/CheckPasswordStrength.jar)
+[Download the jar](https://github.com/venshine/CheckPasswordStrength/releases/download/2.1.0/CheckPasswordStrength.jar)
+
+> 2.1.0 tightens several scoring rules (length gates, repeated patterns, sequences inside the password, embedded dates), so short, repeated or sequence-based passwords may score lower than in 2.0.0. Blank strings and the literal `"null"` no longer throw. See the [CHANGELOG](CHANGELOG.md).
 
 > 2.0.0 fixes consecutive sequence detection, dictionary word detection and a crash on very long numeric passwords, so some passwords score differently than in 1.x. The enum `LEVEL.MIDIUM` has been renamed to `LEVEL.MEDIUM`. See the [CHANGELOG](CHANGELOG.md).
 

@@ -79,7 +79,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.github.venshine:CheckPasswordStrength:2.0.0'
+    implementation 'com.github.venshine:CheckPasswordStrength:2.1.0'
 }
 ```
 
@@ -90,12 +90,14 @@ repositories {
 }
 
 dependencies {
-    implementation("com.github.venshine:CheckPasswordStrength:2.0.0")
+    implementation("com.github.venshine:CheckPasswordStrength:2.1.0")
 }
 ```
 
 ##### Jar:
-[下载jar包](https://github.com/venshine/CheckPasswordStrength/releases/download/2.0.0/CheckPasswordStrength.jar)
+[下载jar包](https://github.com/venshine/CheckPasswordStrength/releases/download/2.1.0/CheckPasswordStrength.jar)
+
+> 2.1.0 收紧了多条评分规则（长度门槛、重复模式、密码中的连续序列、嵌入的日期），短密码、重复密码和含序列的密码可能比 2.0.0 分低；纯空白和字面量 `"null"` 不再抛异常。详见 [CHANGELOG](CHANGELOG.md)。
 
 > 2.0.0 修复了连续序列、字典词检测和超长纯数字崩溃等问题，部分密码的评分会与 1.x 不同；枚举 `LEVEL.MIDIUM` 更名为 `LEVEL.MEDIUM`。详见 [CHANGELOG](CHANGELOG.md)。
 
