@@ -25,6 +25,8 @@ java {
 tasks.withType(JavaCompile).configureEach {
     // 编译为 Java 8 字节码，兼容老项目
     options.release = 8
+    // 源码含中文注释，显式指定编码，避免在非 UTF-8 环境下按平台默认编码解析
+    options.encoding = 'UTF-8'
 }
 
 // 通过 JitPack 发布：com.github.venshine:CheckPasswordStrength:<tag>
