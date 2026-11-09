@@ -7,6 +7,20 @@ English | [简体中文](README-CN.md)
 
 CheckPasswordStrength is an open-source Java library for checking password strength.
 
+ScreenShot
+--
+<img src="screenshot/demo.gif" width="720" alt="CheckPasswordStrength demo" />
+
+| Light | Dark | Empty input |
+|:---:|:---:|:---:|
+| <img src="screenshot/light.png" width="260" /> | <img src="screenshot/dark.png" width="260" /> | <img src="screenshot/empty.png" width="260" /> |
+
+The [Swing sample](sample) scores passwords as you type, shows the raw return values of both APIs, and comes with samples covering all five levels, each labeled with the rule or composition behind its score. Run it from the repository root (Gradle needs JDK 17 or later; the sample itself runs on Java 8+):
+
+```shell
+./gradlew :sample:run
+```
+
 Desc
 --
 #### Dictionary
@@ -94,6 +108,14 @@ Test
 About
 --
 * Email: venshine.cn@gmail.com
+
+Credits
+--
+The Swing sample bundles these fonts, both licensed under the [SIL Open Font License 1.1](https://openfontlicense.org) (license texts in [`sample/licenses/`](sample/licenses)):
+* [Space Grotesk](https://github.com/floriankarsten/space-grotesk): Copyright 2020 The Space Grotesk Project Authors
+* [JetBrains Mono](https://github.com/JetBrains/JetBrainsMono): Copyright 2020 The JetBrains Mono Project Authors
+
+The library itself bundles no fonts.
 
 License
 --

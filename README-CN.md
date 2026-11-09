@@ -7,6 +7,20 @@ CheckPasswordStrength
 
 CheckPasswordStrength是一个Java开源库，提供检测密码强度的功能。
 
+ScreenShot
+--
+<img src="screenshot/demo.gif" width="720" alt="CheckPasswordStrength 演示" />
+
+| 浅色 | 深色 | 空输入 |
+|:---:|:---:|:---:|
+| <img src="screenshot/light.png" width="260" /> | <img src="screenshot/dark.png" width="260" /> | <img src="screenshot/empty.png" width="260" /> |
+
+[Swing 示例](sample) 边输入边打分，直接展示两个 API 的原始返回值，并内置覆盖全部五个等级的样例，每条都注明影响分值的规则或构成。在仓库根目录运行（Gradle 需要 JDK 17 及以上，示例本身 Java 8 即可运行）：
+
+```shell
+./gradlew :sample:run
+```
+
 Desc
 --
 #### Dictionary（字典）
@@ -94,6 +108,14 @@ Test
 About
 --
 * Email：venshine.cn@gmail.com
+
+Credits
+--
+Swing 示例打包了以下字体，均采用 [SIL Open Font License 1.1](https://openfontlicense.org) 协议（协议原文见 [`sample/licenses/`](sample/licenses)）：
+* [Space Grotesk](https://github.com/floriankarsten/space-grotesk)：Copyright 2020 The Space Grotesk Project Authors
+* [JetBrains Mono](https://github.com/JetBrains/JetBrainsMono)：Copyright 2020 The JetBrains Mono Project Authors
+
+库本身不包含任何字体。
 
 License
 --

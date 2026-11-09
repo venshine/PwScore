@@ -1,0 +1,33 @@
+// Swing 示例程序，用于直观验证库的检测结果：./gradlew :sample:run
+// 只用 JDK 自带的 Swing，不发布到 JitPack
+plugins {
+    id 'application'
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src']
+        }
+        resources {
+            srcDirs = ['resources']
+        }
+    }
+}
+
+dependencies {
+    implementation project(':')
+}
+
+tasks.withType(JavaCompile).configureEach {
+    // 与库保持一致，Java 8 即可运行示例
+    options.release = 8
+    // 源码含中文注释，显式指定编码，避免在非 UTF-8 环境下按平台默认编码解析
+    options.encoding = 'UTF-8'
+}
+
+application {
+    mainClass = 'com.wx.pwd.sample.DemoApp'
+    // 版本号只在根项目 build.gradle 维护，示例运行时读取
+    applicationDefaultJvmArgs = ["-Dcheckstrength.version=${rootProject.version}"]
+}
