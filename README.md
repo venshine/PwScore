@@ -25,15 +25,21 @@ Pure Java with no third-party dependencies. It can be called directly from both 
 
 ##### Java:
 ```Java
+import com.wx.pwd.CheckStrength;
+
+public class Demo {
     public static void main(String[] args) {
-		String passwd = "2hAj5#mne-ix.86H";
-		System.out.println(CheckStrength.checkPasswordStrength(passwd));
-	}
+        String passwd = "2hAj5#mne-ix.86H";
+        System.out.println(CheckStrength.checkPasswordStrength(passwd));
+    }
+}
 ```
 
 ```Java
     CheckStrength.LEVEL level = CheckStrength.getPasswordLevel(passwd); // EASY / MEDIUM / STRONG / VERY_STRONG / EXTREMELY_STRONG
 ```
+
+Both methods throw `IllegalArgumentException` when the password is `null` (`"password is null"`) or empty (`"password is empty"`); any other string, including whitespace, gets a score from 0 to 14. Before 2.1.0, blank strings and the literal `"null"` also threw.
 
 ##### Kotlin:
 ```kotlin

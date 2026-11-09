@@ -25,15 +25,21 @@ Usage
 
 ##### Java:
 ```Java
+import com.wx.pwd.CheckStrength;
+
+public class Demo {
     public static void main(String[] args) {
-		String passwd = "2hAj5#mne-ix.86H";
-		System.out.println(CheckStrength.checkPasswordStrength(passwd));
-	}
+        String passwd = "2hAj5#mne-ix.86H";
+        System.out.println(CheckStrength.checkPasswordStrength(passwd));
+    }
+}
 ```
 
 ```Java
     CheckStrength.LEVEL level = CheckStrength.getPasswordLevel(passwd); // EASY / MEDIUM / STRONG / VERY_STRONG / EXTREMELY_STRONG
 ```
+
+两个方法在密码为 `null`（`"password is null"`）或空串（`"password is empty"`）时抛 `IllegalArgumentException`；其他任何字符串（包括纯空白）都返回 0-14 的分值。2.1.0 之前，纯空白和字面量 `"null"` 也会抛异常。
 
 ##### Kotlin:
 ```kotlin
