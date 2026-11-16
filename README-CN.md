@@ -9,6 +9,14 @@ PwScore 给密码强度打分（0 到 14 分），并换算成五个等级。没
 
 **[在浏览器里试一试](https://venshine.github.io/PwScore/)**。在线 demo 在本地运行 JavaScript 版，输入的内容不会发送到任何地方。
 
+<img src="screenshot/demo.gif" width="720" alt="PwScore 在线 demo：边输入边打分" />
+
+[观看视频（MP4）](screenshot/demo.mp4)
+
+| 浅色 | 深色 | 手机、中文 |
+|:---:|:---:|:---:|
+| <img src="screenshot/light.png" width="300" alt="浅色主题，极强密码" /> | <img src="screenshot/dark.png" width="300" alt="深色主题，中等密码" /> | <img src="screenshot/mobile.png" width="120" alt="手机宽度、中文界面，弱密码" /> |
+
 项目原名 CheckPasswordStrength，升级说明见[从 2.x 升级](#从-2x-升级)。
 
 评分规则
@@ -50,7 +58,7 @@ dependencies {
 ```java
 import io.github.venshine.pwscore.PwScore;
 
-int score = PwScore.score("2hAj5#mne-ix.86H");           // 13
+int score = PwScore.score("2hAj5#mne-ix.86H");           // 14
 PwScore.Level level = PwScore.level("2hAj5#mne-ix.86H"); // EXTREMELY_STRONG
 // null or "" throws IllegalArgumentException
 ```
@@ -63,7 +71,7 @@ Kotlin Multiplatform 实现，支持 JVM、Android、iOS、macOS、JS、Linux �
 import io.github.venshine.pwscore.Level
 import io.github.venshine.pwscore.PwScore
 
-val score = PwScore.score("2hAj5#mne-ix.86H") // 13
+val score = PwScore.score("2hAj5#mne-ix.86H") // 14
 val level = PwScore.level("2hAj5#mne-ix.86H") // Level.EXTREMELY_STRONG
 // "" throws IllegalArgumentException
 ```
@@ -80,7 +88,7 @@ Swift Package Manager：
 ```swift
 import PwScore
 
-let score = try PwScore.score("2hAj5#mne-ix.86H") // 13
+let score = try PwScore.score("2hAj5#mne-ix.86H") // 14
 let level = try PwScore.level("2hAj5#mne-ix.86H") // .extremelyStrong
 // "" throws PwScoreError.emptyPassword
 ```
@@ -93,7 +101,7 @@ Swift Package Manager，包地址与 Swift 相同，产品名 `PWScoreObjC`；�
 @import PWScoreObjC;
 
 NSError *error = nil;
-NSInteger score = [PWScore scoreForPassword:@"2hAj5#mne-ix.86H" error:&error];   // 13
+NSInteger score = [PWScore scoreForPassword:@"2hAj5#mne-ix.86H" error:&error];   // 14
 PWScoreLevel level = [PWScore levelForPassword:@"2hAj5#mne-ix.86H" error:&error]; // PWScoreLevelExtremelyStrong
 // @"" returns -1 and sets error (PWScoreErrorEmptyPassword)
 ```
@@ -114,7 +122,7 @@ dependencies:
 ```dart
 import 'package:pwscore/pwscore.dart' as pwscore;
 
-final score = pwscore.score('2hAj5#mne-ix.86H'); // 13
+final score = pwscore.score('2hAj5#mne-ix.86H'); // 14
 final level = pwscore.level('2hAj5#mne-ix.86H'); // Level.extremelyStrong
 // '' throws ArgumentError
 ```
@@ -126,7 +134,7 @@ ES 模块，支持浏览器和 Node.js 18 及以上，带 TypeScript 类型。�
 ```js
 import { score, level } from './pwscore.js';
 
-score('2hAj5#mne-ix.86H'); // 13
+score('2hAj5#mne-ix.86H'); // 14
 level('2hAj5#mne-ix.86H'); // 'EXTREMELY_STRONG'
 // '' throws RangeError; a non-string throws TypeError
 ```
@@ -142,7 +150,7 @@ pip install "pwscore @ git+https://github.com/venshine/PwScore.git@3.1.0#subdire
 ```python
 import pwscore
 
-pwscore.score("2hAj5#mne-ix.86H")  # 13
+pwscore.score("2hAj5#mne-ix.86H")  # 14
 pwscore.level("2hAj5#mne-ix.86H")  # Level.EXTREMELY_STRONG
 # "" raises ValueError; None raises TypeError
 ```
@@ -158,7 +166,7 @@ go get github.com/venshine/PwScore/go/v3@v3.1.0
 ```go
 import "github.com/venshine/PwScore/go/v3"
 
-score, err := pwscore.Score("2hAj5#mne-ix.86H")   // 13
+score, err := pwscore.Score("2hAj5#mne-ix.86H")   // 14
 level, err := pwscore.LevelOf("2hAj5#mne-ix.86H") // pwscore.ExtremelyStrong
 // "" returns pwscore.ErrEmpty; invalid UTF-8 bytes count as U+FFFD
 ```
@@ -173,7 +181,7 @@ pwscore = { git = "https://github.com/venshine/PwScore", tag = "3.1.0" }
 ```
 
 ```rust
-let score = pwscore::score("2hAj5#mne-ix.86H")?; // 13
+let score = pwscore::score("2hAj5#mne-ix.86H")?; // 14
 let level = pwscore::level("2hAj5#mne-ix.86H")?; // Level::ExtremelyStrong
 // "" returns Err(pwscore::EmptyPassword)
 ```
@@ -192,7 +200,7 @@ target_link_libraries(app PRIVATE pwscore)
 ```c
 #include "pwscore.h"
 
-int score = pwscore_score("2hAj5#mne-ix.86H"); /* 13 */
+int score = pwscore_score("2hAj5#mne-ix.86H"); /* 14 */
 int level = pwscore_level("2hAj5#mne-ix.86H"); /* PWSCORE_EXTREMELY_STRONG */
 /* Input is UTF-8. NULL returns PWSCORE_ERR_NULL, "" returns PWSCORE_ERR_EMPTY */
 ```
@@ -204,7 +212,7 @@ C++17，是 C 库外面的一层 header-only 包装。用上面的 CMake 配置�
 ```cpp
 #include "pwscore.hpp"
 
-int score = pwscore::score("2hAj5#mne-ix.86H");             // 13
+int score = pwscore::score("2hAj5#mne-ix.86H");             // 14
 pwscore::Level level = pwscore::level("2hAj5#mne-ix.86H");  // pwscore::Level::ExtremelyStrong
 // "" throws std::invalid_argument
 ```
@@ -216,7 +224,7 @@ pwscore::Level level = pwscore::level("2hAj5#mne-ix.86H");  // pwscore::Level::E
 ```csharp
 using Venshine;
 
-int score = PwScore.Score("2hAj5#mne-ix.86H");     // 13
+int score = PwScore.Score("2hAj5#mne-ix.86H");     // 14
 PwLevel level = PwScore.Level("2hAj5#mne-ix.86H"); // PwLevel.ExtremelyStrong
 // null throws ArgumentNullException; "" throws ArgumentException
 ```
@@ -232,7 +240,7 @@ gem 'pwscore', git: 'https://github.com/venshine/PwScore.git', tag: '3.1.0', glo
 ```ruby
 require 'pwscore'
 
-PwScore.score('2hAj5#mne-ix.86H') # 13
+PwScore.score('2hAj5#mne-ix.86H') # 14
 PwScore.level('2hAj5#mne-ix.86H') # :extremely_strong
 # nil or '' raises ArgumentError
 ```
@@ -244,7 +252,7 @@ Perl 5.10 及以上。把 [`perl/lib/PwScore.pm`](perl/lib/PwScore.pm) 拷进库
 ```perl
 use PwScore qw(score level);
 
-score('2hAj5#mne-ix.86H'); # 13
+score('2hAj5#mne-ix.86H'); # 14
 level('2hAj5#mne-ix.86H'); # 'EXTREMELY_STRONG'
 # undef or '' croaks
 ```

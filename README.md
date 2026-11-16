@@ -9,6 +9,14 @@ PwScore scores how strong a password is, from 0 to 14, and maps the score to one
 
 **[Try it in your browser](https://venshine.github.io/PwScore/)**. The demo runs the JavaScript version locally; nothing you type is sent anywhere.
 
+<img src="screenshot/demo.gif" width="720" alt="PwScore web demo: the score updates as you type" />
+
+[Watch as a video (MP4)](screenshot/demo.mp4)
+
+| Light | Dark | Phone, Chinese |
+|:---:|:---:|:---:|
+| <img src="screenshot/light.png" width="300" alt="Light theme, extremely strong password" /> | <img src="screenshot/dark.png" width="300" alt="Dark theme, medium password" /> | <img src="screenshot/mobile.png" width="120" alt="Phone width in Chinese, easy password" /> |
+
 Formerly CheckPasswordStrength. See [Upgrading from 2.x](#upgrading-from-2x).
 
 How it scores
@@ -50,7 +58,7 @@ dependencies {
 ```java
 import io.github.venshine.pwscore.PwScore;
 
-int score = PwScore.score("2hAj5#mne-ix.86H");           // 13
+int score = PwScore.score("2hAj5#mne-ix.86H");           // 14
 PwScore.Level level = PwScore.level("2hAj5#mne-ix.86H"); // EXTREMELY_STRONG
 // null or "" throws IllegalArgumentException
 ```
@@ -63,7 +71,7 @@ A Kotlin Multiplatform implementation for JVM, Android, iOS, macOS, JS, Linux an
 import io.github.venshine.pwscore.Level
 import io.github.venshine.pwscore.PwScore
 
-val score = PwScore.score("2hAj5#mne-ix.86H") // 13
+val score = PwScore.score("2hAj5#mne-ix.86H") // 14
 val level = PwScore.level("2hAj5#mne-ix.86H") // Level.EXTREMELY_STRONG
 // "" throws IllegalArgumentException
 ```
@@ -80,7 +88,7 @@ Swift Package Manager:
 ```swift
 import PwScore
 
-let score = try PwScore.score("2hAj5#mne-ix.86H") // 13
+let score = try PwScore.score("2hAj5#mne-ix.86H") // 14
 let level = try PwScore.level("2hAj5#mne-ix.86H") // .extremelyStrong
 // "" throws PwScoreError.emptyPassword
 ```
@@ -93,7 +101,7 @@ Swift Package Manager, product `PWScoreObjC` (same package URL as Swift), or cop
 @import PWScoreObjC;
 
 NSError *error = nil;
-NSInteger score = [PWScore scoreForPassword:@"2hAj5#mne-ix.86H" error:&error];   // 13
+NSInteger score = [PWScore scoreForPassword:@"2hAj5#mne-ix.86H" error:&error];   // 14
 PWScoreLevel level = [PWScore levelForPassword:@"2hAj5#mne-ix.86H" error:&error]; // PWScoreLevelExtremelyStrong
 // @"" returns -1 and sets error (PWScoreErrorEmptyPassword)
 ```
@@ -114,7 +122,7 @@ dependencies:
 ```dart
 import 'package:pwscore/pwscore.dart' as pwscore;
 
-final score = pwscore.score('2hAj5#mne-ix.86H'); // 13
+final score = pwscore.score('2hAj5#mne-ix.86H'); // 14
 final level = pwscore.level('2hAj5#mne-ix.86H'); // Level.extremelyStrong
 // '' throws ArgumentError
 ```
@@ -126,7 +134,7 @@ An ES module for browsers and Node.js 18 or later, with TypeScript types. Copy [
 ```js
 import { score, level } from './pwscore.js';
 
-score('2hAj5#mne-ix.86H'); // 13
+score('2hAj5#mne-ix.86H'); // 14
 level('2hAj5#mne-ix.86H'); // 'EXTREMELY_STRONG'
 // '' throws RangeError; a non-string throws TypeError
 ```
@@ -142,7 +150,7 @@ pip install "pwscore @ git+https://github.com/venshine/PwScore.git@3.1.0#subdire
 ```python
 import pwscore
 
-pwscore.score("2hAj5#mne-ix.86H")  # 13
+pwscore.score("2hAj5#mne-ix.86H")  # 14
 pwscore.level("2hAj5#mne-ix.86H")  # Level.EXTREMELY_STRONG
 # "" raises ValueError; None raises TypeError
 ```
@@ -158,7 +166,7 @@ go get github.com/venshine/PwScore/go/v3@v3.1.0
 ```go
 import "github.com/venshine/PwScore/go/v3"
 
-score, err := pwscore.Score("2hAj5#mne-ix.86H")   // 13
+score, err := pwscore.Score("2hAj5#mne-ix.86H")   // 14
 level, err := pwscore.LevelOf("2hAj5#mne-ix.86H") // pwscore.ExtremelyStrong
 // "" returns pwscore.ErrEmpty; invalid UTF-8 bytes count as U+FFFD
 ```
@@ -173,7 +181,7 @@ pwscore = { git = "https://github.com/venshine/PwScore", tag = "3.1.0" }
 ```
 
 ```rust
-let score = pwscore::score("2hAj5#mne-ix.86H")?; // 13
+let score = pwscore::score("2hAj5#mne-ix.86H")?; // 14
 let level = pwscore::level("2hAj5#mne-ix.86H")?; // Level::ExtremelyStrong
 // "" returns Err(pwscore::EmptyPassword)
 ```
@@ -192,7 +200,7 @@ target_link_libraries(app PRIVATE pwscore)
 ```c
 #include "pwscore.h"
 
-int score = pwscore_score("2hAj5#mne-ix.86H"); /* 13 */
+int score = pwscore_score("2hAj5#mne-ix.86H"); /* 14 */
 int level = pwscore_level("2hAj5#mne-ix.86H"); /* PWSCORE_EXTREMELY_STRONG */
 /* Input is UTF-8. NULL returns PWSCORE_ERR_NULL, "" returns PWSCORE_ERR_EMPTY */
 ```
@@ -204,7 +212,7 @@ C++17, a header-only wrapper around the C library. With the CMake setup above, l
 ```cpp
 #include "pwscore.hpp"
 
-int score = pwscore::score("2hAj5#mne-ix.86H");             // 13
+int score = pwscore::score("2hAj5#mne-ix.86H");             // 14
 pwscore::Level level = pwscore::level("2hAj5#mne-ix.86H");  // pwscore::Level::ExtremelyStrong
 // "" throws std::invalid_argument
 ```
@@ -216,7 +224,7 @@ pwscore::Level level = pwscore::level("2hAj5#mne-ix.86H");  // pwscore::Level::E
 ```csharp
 using Venshine;
 
-int score = PwScore.Score("2hAj5#mne-ix.86H");     // 13
+int score = PwScore.Score("2hAj5#mne-ix.86H");     // 14
 PwLevel level = PwScore.Level("2hAj5#mne-ix.86H"); // PwLevel.ExtremelyStrong
 // null throws ArgumentNullException; "" throws ArgumentException
 ```
@@ -232,7 +240,7 @@ gem 'pwscore', git: 'https://github.com/venshine/PwScore.git', tag: '3.1.0', glo
 ```ruby
 require 'pwscore'
 
-PwScore.score('2hAj5#mne-ix.86H') # 13
+PwScore.score('2hAj5#mne-ix.86H') # 14
 PwScore.level('2hAj5#mne-ix.86H') # :extremely_strong
 # nil or '' raises ArgumentError
 ```
@@ -244,7 +252,7 @@ Perl 5.10 or later. Copy [`perl/lib/PwScore.pm`](perl/lib/PwScore.pm) into your 
 ```perl
 use PwScore qw(score level);
 
-score('2hAj5#mne-ix.86H'); # 13
+score('2hAj5#mne-ix.86H'); # 14
 level('2hAj5#mne-ix.86H'); # 'EXTREMELY_STRONG'
 # undef or '' croaks
 ```
