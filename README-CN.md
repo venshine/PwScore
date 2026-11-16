@@ -1,123 +1,271 @@
-CheckPasswordStrength
+PwScore
 ==
 
 [English](README.md) | 简体中文
 
-[![JitPack](https://jitpack.io/v/venshine/CheckPasswordStrength.svg)](https://jitpack.io/#venshine/CheckPasswordStrength)  [![CI](https://github.com/venshine/CheckPasswordStrength/actions/workflows/ci.yml/badge.svg)](https://github.com/venshine/CheckPasswordStrength/actions/workflows/ci.yml)
+[![CI](https://github.com/venshine/PwScore/actions/workflows/ci.yml/badge.svg)](https://github.com/venshine/PwScore/actions/workflows/ci.yml) [![JitPack](https://jitpack.io/v/venshine/PwScore.svg)](https://jitpack.io/#venshine/PwScore)
 
-CheckPasswordStrength是一个Java开源库，提供检测密码强度的功能。
+PwScore 给密码强度打分（0 到 14 分），并换算成五个等级。没有任何依赖，同一个密码在 14 种语言里得分完全相同：Java、Kotlin、Swift、Objective-C、Dart、JavaScript、Python、Go、Rust、C、C++、C#、Ruby 和 Perl。
 
-ScreenShot
+**[在浏览器里试一试](https://venshine.github.io/PwScore/)**。在线 demo 在本地运行 JavaScript 版，输入的内容不会发送到任何地方。
+
+项目原名 CheckPasswordStrength，升级说明见[从 2.x 升级](#从-2x-升级)。
+
+评分规则
 --
-<img src="screenshot/demo.gif" width="720" alt="CheckPasswordStrength 演示" />
+混用多种字符、增加长度会加分；`abcd`、`4321`、`qwer` 这类连续序列，`19881010` 这类日期，`password` 这类常见词，以及过短的密码会减分。由更短片段重复组成的密码（如 `Ab1!Ab1!Ab1!`）按那个片段评分。长度按 UTF-16 码元计，一个 emoji 算 2。
 
-| 浅色 | 深色 | 空输入 |
-|:---:|:---:|:---:|
-| <img src="screenshot/light.png" width="260" /> | <img src="screenshot/dark.png" width="260" /> | <img src="screenshot/empty.png" width="260" /> |
+| 分值 | 等级 |
+|---|---|
+| 0-3 | EASY |
+| 4-6 | MEDIUM |
+| 7-9 | STRONG |
+| 10-12 | VERY_STRONG |
+| 13-14 | EXTREMELY_STRONG |
 
-[Swing 示例](sample) 边输入边打分，直接展示两个 API 的原始返回值，并内置覆盖全部五个等级的样例，每条都注明影响分值的规则或构成。在仓库根目录运行（Gradle 需要 JDK 17 及以上，示例本身 Java 8 即可运行）：
+完整规则见 [spec/SPEC.md](spec/SPEC.md)。每种语言的实现都用同一份[评分快照](spec/score-snapshot.tsv)测试。
 
-```shell
-./gradlew :sample:run
-```
+每种语言都提供 `score` 和 `level` 两个调用，命名遵循各语言习惯。空密码视为错误，按各语言惯例抛异常、返回错误值或负的错误码，见下文各节。
 
-Desc
+使用
 --
-#### Dictionary（字典）
-**{"password", "abc123", "iloveyou", "adobe123", "123123", "sunshine","1314520", "a1b2c3", "123qwe", "aaa111", "qweasd", "admin", "passwd"}**
+目前还没有发布到各语言的包仓库，可以按下文从本仓库安装，或者把源文件拷进项目。
 
-#### Level（级别）
-* **0-3 : [easy]**
-* **4-6 : [medium]**  
-* **7-9 : [strong]**  
-* **10-12 : [very strong]**  
-* **&gt;12 : [extremely strong]**  
+[Java](#java) · [Kotlin](#kotlin) · [Swift](#swift) · [Objective-C](#objective-c) · [Dart](#dart) · [JavaScript](#javascript) · [Python](#python) · [Go](#go) · [Rust](#rust) · [C](#c) · [C++](#c-1) · [C#](#c-2) · [Ruby](#ruby) · [Perl](#perl)
 
-Usage
---
-纯 Java 实现，没有第三方依赖，Java 和 Kotlin（JVM / Android）都可以直接调用。
+### Java
 
-##### Java:
-```Java
-import com.wx.pwd.CheckStrength;
+Java 8 及以上。在 Gradle 中添加 [JitPack](https://jitpack.io/#venshine/PwScore)：
 
-public class Demo {
-    public static void main(String[] args) {
-        String passwd = "2hAj5#mne-ix.86H";
-        System.out.println(CheckStrength.checkPasswordStrength(passwd));
-    }
-}
-```
-
-```Java
-    CheckStrength.LEVEL level = CheckStrength.getPasswordLevel(passwd); // EASY / MEDIUM / STRONG / VERY_STRONG / EXTREMELY_STRONG
-```
-
-两个方法在密码为 `null`（`"password is null"`）或空串（`"password is empty"`）时抛 `IllegalArgumentException`；其他任何字符串（包括纯空白）都返回 0-14 的分值。2.1.0 之前，纯空白和字面量 `"null"` 也会抛异常。
-
-##### Kotlin:
-```kotlin
-import com.wx.pwd.CheckStrength
-
-fun main() {
-    val passwd = "2hAj5#mne-ix.86H"
-    println(CheckStrength.checkPasswordStrength(passwd)) // 强度分值
-
-    when (CheckStrength.getPasswordLevel(passwd)) {
-        CheckStrength.LEVEL.EASY, CheckStrength.LEVEL.MEDIUM -> println("密码太弱")
-        else -> println("密码强度合格")
-    }
-}
-```
-
-Download
---
-##### Gradle（通过 JitPack）:
 ```groovy
 repositories {
     maven { url = 'https://jitpack.io' }
 }
 
 dependencies {
-    implementation 'com.github.venshine:CheckPasswordStrength:2.1.0'
+    implementation 'com.github.venshine:PwScore:3.0.0'
 }
 ```
 
-##### Gradle Kotlin DSL:
+```java
+import io.github.venshine.pwscore.PwScore;
+
+int score = PwScore.score("2hAj5#mne-ix.86H");           // 13
+PwScore.Level level = PwScore.level("2hAj5#mne-ix.86H"); // EXTREMELY_STRONG
+// null or "" throws IllegalArgumentException
+```
+
+### Kotlin
+
+Kotlin Multiplatform 实现，支持 JVM、Android、iOS、macOS、JS、Linux 和 Windows。把 [`kotlin/src/commonMain/kotlin/io/github/venshine/pwscore/PwScore.kt`](kotlin/src/commonMain/kotlin/io/github/venshine/pwscore/PwScore.kt) 拷进 common 源码集即可。只用 JVM 或 Android 的项目，也可以直接依赖上面的 Java 包。
+
 ```kotlin
-repositories {
-    maven("https://jitpack.io")
-}
+import io.github.venshine.pwscore.Level
+import io.github.venshine.pwscore.PwScore
 
-dependencies {
-    implementation("com.github.venshine:CheckPasswordStrength:2.1.0")
-}
+val score = PwScore.score("2hAj5#mne-ix.86H") // 13
+val level = PwScore.level("2hAj5#mne-ix.86H") // Level.EXTREMELY_STRONG
+// "" throws IllegalArgumentException
 ```
 
-##### Jar:
-[下载jar包](https://github.com/venshine/CheckPasswordStrength/releases/download/2.1.0/CheckPasswordStrength.jar)
+### Swift
 
-> 2.1.0 收紧了多条评分规则（长度门槛、重复模式、密码中的连续序列、嵌入的日期），短密码、重复密码和含序列的密码可能比 2.0.0 分低；纯空白和字面量 `"null"` 不再抛异常。详见 [CHANGELOG](CHANGELOG.md)。
+Swift Package Manager：
 
-> 2.0.0 修复了连续序列、字典词检测和超长纯数字崩溃等问题，部分密码的评分会与 1.x 不同；枚举 `LEVEL.MIDIUM` 更名为 `LEVEL.MEDIUM`。详见 [CHANGELOG](CHANGELOG.md)。
+```swift
+.package(url: "https://github.com/venshine/PwScore.git", from: "3.0.0")
+// target dependency: .product(name: "PwScore", package: "PwScore")
+```
 
-Test
---
+```swift
+import PwScore
+
+let score = try PwScore.score("2hAj5#mne-ix.86H") // 13
+let level = try PwScore.level("2hAj5#mne-ix.86H") // .extremelyStrong
+// "" throws PwScoreError.emptyPassword
+```
+
+### Objective-C
+
+Swift Package Manager，包地址与 Swift 相同，产品名 `PWScoreObjC`；也可以拷贝 [`objc/Sources/PWScore/`](objc/Sources/PWScore) 下的两个文件。
+
+```objc
+@import PWScoreObjC;
+
+NSError *error = nil;
+NSInteger score = [PWScore scoreForPassword:@"2hAj5#mne-ix.86H" error:&error];   // 13
+PWScoreLevel level = [PWScore levelForPassword:@"2hAj5#mne-ix.86H" error:&error]; // PWScoreLevelExtremelyStrong
+// @"" returns -1 and sets error (PWScoreErrorEmptyPassword)
+```
+
+### Dart
+
+Dart 3 或 Flutter。在 `pubspec.yaml` 中：
+
+```yaml
+dependencies:
+  pwscore:
+    git:
+      url: https://github.com/venshine/PwScore.git
+      path: dart
+      ref: 3.0.0
+```
+
+```dart
+import 'package:pwscore/pwscore.dart' as pwscore;
+
+final score = pwscore.score('2hAj5#mne-ix.86H'); // 13
+final level = pwscore.level('2hAj5#mne-ix.86H'); // Level.extremelyStrong
+// '' throws ArgumentError
+```
+
+### JavaScript
+
+ES 模块，支持浏览器和 Node.js 18 及以上，带 TypeScript 类型。拷贝 [`js/pwscore.js`](js/pwscore.js) 和 [`js/pwscore.d.ts`](js/pwscore.d.ts)。
+
+```js
+import { score, level } from './pwscore.js';
+
+score('2hAj5#mne-ix.86H'); // 13
+level('2hAj5#mne-ix.86H'); // 'EXTREMELY_STRONG'
+// '' throws RangeError; a non-string throws TypeError
+```
+
+### Python
+
+Python 3.8 及以上：
+
 ```shell
-./test.sh
+pip install "pwscore @ git+https://github.com/venshine/PwScore.git@3.0.0#subdirectory=python"
 ```
 
-About
---
-* Email：venshine.cn@gmail.com
+```python
+import pwscore
 
-Credits
---
-Swing 示例打包了以下字体，均采用 [SIL Open Font License 1.1](https://openfontlicense.org) 协议（协议原文见 [`sample/licenses/`](sample/licenses)）：
-* [Space Grotesk](https://github.com/floriankarsten/space-grotesk)：Copyright 2020 The Space Grotesk Project Authors
-* [JetBrains Mono](https://github.com/JetBrains/JetBrainsMono)：Copyright 2020 The JetBrains Mono Project Authors
+pwscore.score("2hAj5#mne-ix.86H")  # 13
+pwscore.level("2hAj5#mne-ix.86H")  # Level.EXTREMELY_STRONG
+# "" raises ValueError; None raises TypeError
+```
 
-库本身不包含任何字体。
+### Go
+
+Go 1.18 及以上：
+
+```shell
+go get github.com/venshine/PwScore/go/v3@v3.0.0
+```
+
+```go
+import "github.com/venshine/PwScore/go/v3"
+
+score, err := pwscore.Score("2hAj5#mne-ix.86H")   // 13
+level, err := pwscore.LevelOf("2hAj5#mne-ix.86H") // pwscore.ExtremelyStrong
+// "" returns pwscore.ErrEmpty; invalid UTF-8 bytes count as U+FFFD
+```
+
+### Rust
+
+在 `Cargo.toml` 中：
+
+```toml
+[dependencies]
+pwscore = { git = "https://github.com/venshine/PwScore", tag = "3.0.0" }
+```
+
+```rust
+let score = pwscore::score("2hAj5#mne-ix.86H")?; // 13
+let level = pwscore::level("2hAj5#mne-ix.86H")?; // Level::ExtremelyStrong
+// "" returns Err(pwscore::EmptyPassword)
+```
+
+### C
+
+C99。把 [`c/pwscore.h`](c/pwscore.h) 和 [`c/pwscore.c`](c/pwscore.c) 加入编译，或者用 CMake：
+
+```cmake
+include(FetchContent)
+FetchContent_Declare(pwscore GIT_REPOSITORY https://github.com/venshine/PwScore.git GIT_TAG 3.0.0)
+FetchContent_MakeAvailable(pwscore)
+target_link_libraries(app PRIVATE pwscore)
+```
+
+```c
+#include "pwscore.h"
+
+int score = pwscore_score("2hAj5#mne-ix.86H"); /* 13 */
+int level = pwscore_level("2hAj5#mne-ix.86H"); /* PWSCORE_EXTREMELY_STRONG */
+/* Input is UTF-8. NULL returns PWSCORE_ERR_NULL, "" returns PWSCORE_ERR_EMPTY */
+```
+
+### C++
+
+C++17，是 C 库外面的一层 header-only 包装。用上面的 CMake 配置时链接 `pwscore::cpp`；不用 CMake 时，在 C 的两个文件之外再加上 [`cpp/pwscore.hpp`](cpp/pwscore.hpp)。
+
+```cpp
+#include "pwscore.hpp"
+
+int score = pwscore::score("2hAj5#mne-ix.86H");             // 13
+pwscore::Level level = pwscore::level("2hAj5#mne-ix.86H");  // pwscore::Level::ExtremelyStrong
+// "" throws std::invalid_argument
+```
+
+### C#
+
+.NET Standard 2.0（.NET Framework 4.6.1+、.NET Core 2.0+、.NET 5+、Unity）。拷贝 [`csharp/PwScore/PwScore.cs`](csharp/PwScore/PwScore.cs)，或者引用 [`csharp/PwScore/PwScore.csproj`](csharp/PwScore/PwScore.csproj)。
+
+```csharp
+using Venshine;
+
+int score = PwScore.Score("2hAj5#mne-ix.86H");     // 13
+PwLevel level = PwScore.Level("2hAj5#mne-ix.86H"); // PwLevel.ExtremelyStrong
+// null throws ArgumentNullException; "" throws ArgumentException
+```
+
+### Ruby
+
+Ruby 2.6 及以上。在 `Gemfile` 中：
+
+```ruby
+gem 'pwscore', git: 'https://github.com/venshine/PwScore.git', tag: '3.0.0', glob: 'ruby/*.gemspec'
+```
+
+```ruby
+require 'pwscore'
+
+PwScore.score('2hAj5#mne-ix.86H') # 13
+PwScore.level('2hAj5#mne-ix.86H') # :extremely_strong
+# nil or '' raises ArgumentError
+```
+
+### Perl
+
+Perl 5.10 及以上。把 [`perl/lib/PwScore.pm`](perl/lib/PwScore.pm) 拷进库路径。参数要传解码后的字符串，不要传 UTF-8 字节串。
+
+```perl
+use PwScore qw(score level);
+
+score('2hAj5#mne-ix.86H'); # 13
+level('2hAj5#mne-ix.86H'); # 'EXTREMELY_STRONG'
+# undef or '' croaks
+```
+
+从 2.x 升级
+--
+3.0.0 起项目由 CheckPasswordStrength 更名为 PwScore：
+
+| 2.x | 3.0.0 |
+|---|---|
+| `com.github.venshine:CheckPasswordStrength` | `com.github.venshine:PwScore` |
+| `com.wx.pwd.CheckStrength.checkPasswordStrength(s)` | `io.github.venshine.pwscore.PwScore.score(s)` |
+| `CheckStrength.getPasswordLevel(s)` | `PwScore.level(s)` |
+| `CheckStrength.LEVEL` | `PwScore.Level` |
+| `com.wx.pwd.StringUtils` | 已删除 |
+
+两处评分修正会让少数密码的分值变化，详见 [CHANGELOG](CHANGELOG.md)。
+
+开发
+--
+`./test.sh` 运行本机已装工具链的所有语言的测试，`./test.sh go rust` 只运行指定语言。修改规则时按 [spec/SPEC.md](spec/SPEC.md) 末尾的步骤操作。
 
 License
 --
@@ -134,4 +282,3 @@ License
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
-

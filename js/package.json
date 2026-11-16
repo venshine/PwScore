@@ -1,0 +1,28 @@
+{
+  "name": "pwscore",
+  "version": "3.0.0",
+  "description": "Password strength scoring with no dependencies",
+  "type": "module",
+  "main": "./pwscore.js",
+  "types": "./pwscore.d.ts",
+  "exports": {
+    ".": {
+      "types": "./pwscore.d.ts",
+      "default": "./pwscore.js"
+    }
+  },
+  "files": ["pwscore.js", "pwscore.d.ts"],
+  "scripts": {
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": ["password", "strength", "password-strength"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/venshine/PwScore.git",
+    "directory": "js"
+  },
+  "license": "Apache-2.0"
+}

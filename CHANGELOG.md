@@ -1,3 +1,22 @@
+## 3.0.0
+
+### 项目更名与不兼容变更
+* 项目由 CheckPasswordStrength 更名为 PwScore。JitPack 坐标改为 `com.github.venshine:PwScore:3.0.0`。
+* Java API 改名：`com.wx.pwd.CheckStrength.checkPasswordStrength` 改为 `io.github.venshine.pwscore.PwScore.score`，`getPasswordLevel` 改为 `level`，枚举 `CheckStrength.LEVEL` 改为 `PwScore.Level`（取值不变）。
+* 删除 `com.wx.pwd.StringUtils`。其中 `sizeOfInt`、`isNumeric`、`equalsNull` 在库内没有任何引用。
+
+### 评分变更
+* 修复「全部相同」的判断：原实现 `replace(首字符, ' ').trim()` 会把所有 ≤ U+0020 的字符（空格、Tab 等）当成与首字符相同，导致 `x x x x`、`x` 加 7 个空格这类密码直接判 0 分，「前后两半各自相同」也会误判。现在严格比较每个码元，例如 `x       ` 由 0 分变为 5 分。
+* 字典与序列匹配前的小写转换只转换 A-Z，不再使用 `toLowerCase(Locale.ROOT)`。只有开尔文符号 `K`（U+212A）、`İ`（U+0130）这类小写后会变成 ASCII 字母的字符，评分可能与 2.1.0 不同。这样各语言实现不依赖各自的 Unicode 小写表。
+
+### 新增
+* 新增 Kotlin（Multiplatform）、Swift、Objective-C、Dart、JavaScript、Python、Go、Rust、C、C++、C#、Ruby、Perl 实现，各语言用法见 README。
+* 新增规则说明 `spec/SPEC.md`；评分快照移至 `spec/score-snapshot.tsv`，所有语言用同一份快照测试，由 `java/test.sh --generate` 生成。
+* 新增在线 demo（`web/`），在浏览器本地评分，通过 GitHub Pages 发布。
+
+### 其他
+* 删除 Swing 示例 `sample/` 和截图。
+
 ## 2.1.0
 
 ### 评分变更

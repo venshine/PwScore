@@ -4,34 +4,35 @@ The generic steps live in the global `release-seal` skill. This file only record
 
 ## Version
 
-- Semantic versioning `X.Y.Z`.
+- Semantic versioning `X.Y.Z`, shared by every language.
 - **The version is bumped at release time.** Do not bump to the next version after sealing (skip the skill's "bump version" step).
-- Update all of these in the release commit (`grep -rn "<old version>" build.gradle README.md README-CN.md` should hit every one):
-  - `version` in `build.gradle`. The Swing sample's version chip reads it at runtime, so nothing in `sample/` needs editing.
-  - The Groovy and Kotlin DSL dependency coordinates and the jar download link in `README.md` and `README-CN.md`
+- Update every occurrence in the release commit. Find them with:
+  `grep -rn "<old version>" --exclude-dir=.tmp --exclude-dir=.private --exclude-dir=.git --exclude=CHANGELOG.md .`
+  (build files of each language, `CMakeLists.txt`, version constants in the Python, Ruby and Perl sources, and the install snippets in both READMEs).
+- On a major version change, also change the `/vN` suffix of the module path in `go/go.mod` and the Go snippets in both READMEs.
 - Move the `CHANGELOG.md` section from "unreleased" to the released version.
 
 ## Pre-release checks
 
 ```bash
-./test.sh
+./test.sh          # every language with a local toolchain; C# runs only in CI
 ./gradlew build
 ```
 
-If the scoring changes, regenerate `test/score-snapshot.tsv` and review every changed line in the diff before releasing.
+CI must be green for the release commit, including the `csharp` and `apple` jobs. If the scoring changes, regenerate the snapshot with `java/test.sh --generate` and review every changed line before releasing.
 
-## Tag
+## Tags
 
-- The tag name is the bare version, without a `v` prefix: `2.1.0`
-- Annotated tag with the message `CheckPasswordStrength X.Y.Z`, created on the release commit and pushed to `origin`
-- JitPack builds from the tag; the coordinate is `com.github.venshine:CheckPasswordStrength:X.Y.Z`. After pushing, check `https://jitpack.io/api/builds/com.github.venshine/CheckPasswordStrength/X.Y.Z`
+- `X.Y.Z` (no `v` prefix), annotated, message `PwScore X.Y.Z`. JitPack, SwiftPM and the git dependencies of Dart, Python, Rust and Ruby use it.
+- `go/vX.Y.Z` on the same commit, for the Go module in `go/`.
+- Push both to `origin`. Then check `https://jitpack.io/api/builds/com.github.venshine/PwScore/X.Y.Z`.
 
 ## GitHub Release
 
-- Title: `CheckPasswordStrength X.Y.Z`. Notes are written in English, with sections such as "Scoring changes / API / Other / Installation", kept or dropped as the release requires
-- Attachment: the library jar, named `CheckPasswordStrength.jar` (the README download link points to this name)
-  - Build: `./gradlew jar`; output at `build/libs/CheckPasswordStrength-X.Y.Z.jar`, uploaded under the fixed name
+- Title: `PwScore X.Y.Z`. Notes in English, with sections such as "Scoring changes / API / Other / Installation", kept or dropped as the release requires.
+- Attachment: the Java library jar, named `PwScore.jar`. Build with `./gradlew jar`; the output is `build/libs/PwScore-X.Y.Z.jar`, uploaded under the fixed name.
 
 ## Afterwards
 
-- There is no product doc or ROADMAP; the GitHub Release and `CHANGELOG.md` are the source of truth for release notes, so no other docs need syncing
+- The web demo deploys from `master` through `.github/workflows/pages.yml`; check that https://venshine.github.io/PwScore/ shows the new version's scores.
+- Update `ROADMAP.md`. There is no product doc; the GitHub Release and `CHANGELOG.md` are the release notes.

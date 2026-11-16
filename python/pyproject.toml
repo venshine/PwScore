@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pwscore"
+version = "3.0.0"
+description = "Password strength scoring with no dependencies"
+license = { text = "Apache-2.0" }
+requires-python = ">=3.8"
+keywords = ["password", "strength"]
+
+[project.urls]
+Homepage = "https://github.com/venshine/PwScore"
+
+[tool.setuptools]
+packages = ["pwscore"]

@@ -1,19 +1,20 @@
+// Java 参考实现，源码在 java/；Gradle 工程留在仓库根目录，JitPack 从根目录构建
 plugins {
     id 'java-library'
     id 'maven-publish'
 }
 
-version = '2.1.0'
+version = '3.0.0'
 
 repositories {
     mavenCentral()
 }
 
-// 源码沿用原有的 src/ 目录结构；回归测试见 test.sh
+// 回归测试见 java/test.sh
 sourceSets {
     main {
         java {
-            srcDirs = ['src']
+            srcDirs = ['java/src']
         }
     }
 }
@@ -29,12 +30,12 @@ tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
 }
 
-// 通过 JitPack 发布：com.github.venshine:CheckPasswordStrength:<tag>
+// 通过 JitPack 发布：com.github.venshine:PwScore:<tag>
 publishing {
     publications {
         release(MavenPublication) {
             groupId = 'com.github.venshine'
-            artifactId = 'CheckPasswordStrength'
+            artifactId = 'PwScore'
             version = project.version
             from components.java
         }
