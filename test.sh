@@ -17,8 +17,8 @@ run() {
   case "$1" in
     java) have javac && "$ROOT/java/test.sh" ;;
     kotlin) have java && "$ROOT/gradlew" -q -p "$ROOT/kotlin" jvmTest ;;
-    swift) have swift && swift test --package-path "$ROOT" --scratch-path "$BUILD/swift" --filter PwScoreTests ;;
-    objc) have swift && [ "$(uname)" = Darwin ] && swift test --package-path "$ROOT" --scratch-path "$BUILD/swift" --filter PWScoreTests ;;
+    swift) have swift && swift test -c release --package-path "$ROOT" --scratch-path "$BUILD/swift" --filter PwScoreTests ;;
+    objc) have swift && [ "$(uname)" = Darwin ] && swift test -c release --package-path "$ROOT" --scratch-path "$BUILD/swift" --filter PWScoreTests ;;
     dart) have dart && (cd "$ROOT/dart" && dart pub get >/dev/null && dart test) ;;
     js) have node && node --test "$ROOT/js/pwscore.test.js" ;;
     python) have python3 && PYTHONPATH="$ROOT/python" python3 -m unittest discover -s "$ROOT/python/tests" -t "$ROOT/python/tests" ;;

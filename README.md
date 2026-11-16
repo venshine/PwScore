@@ -13,7 +13,7 @@ Formerly CheckPasswordStrength. See [Upgrading from 2.x](#upgrading-from-2x).
 
 How it scores
 --
-Mixing character types and adding length raise the score. Runs like `abcd`, `4321` or `qwer`, dates like `19881010`, common words like `password`, and very short passwords lower it. A password made of a shorter piece repeated (`Ab1!Ab1!Ab1!`) is scored as that piece. Lengths count UTF-16 code units, so an emoji counts as 2.
+Mixing character types and adding length raise the score. Runs and keyboard patterns (`abcd`, `4321`, `qwer`, `1qaz`), dates and years (`19881010`, `2024`), about 80 common words and pinyin even when written as `p@ssw0rd`, very short passwords, and passwords made of only a few different characters lower it. Repeated characters and repeated pieces count once, so `aaaa` or `Ab1!Ab1!Ab1!x` gain almost nothing from their length. Fullwidth letters and digits count as their ASCII forms; other non-ASCII characters, including emoji, form a class of their own.
 
 | Score | Level |
 |---|---|
@@ -261,7 +261,7 @@ Upgrading from 2.x
 | `CheckStrength.LEVEL` | `PwScore.Level` |
 | `com.wx.pwd.StringUtils` | removed |
 
-Two scoring fixes may change a few scores. See the [CHANGELOG](CHANGELOG.md).
+3.0.0 also reworks the scoring rules, so many passwords score differently, and passwords that only looked strong (repeats, keyboard patterns, common words, years) score lower. See the [CHANGELOG](CHANGELOG.md).
 
 Development
 --

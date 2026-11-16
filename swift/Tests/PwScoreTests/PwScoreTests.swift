@@ -2,7 +2,7 @@
 import Foundation
 import XCTest
 
-@testable import PwScore
+import PwScore
 
 final class PwScoreTests: XCTestCase {
     func testSnapshot() throws {

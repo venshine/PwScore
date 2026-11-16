@@ -47,11 +47,22 @@ public class PwScoreTest {
         assertTrue("leap day is a date", score("x20240229y") < score("x20230229y"));
 
         // 「全部相同」只看码元是否真的相同：空白、Tab 不能当成与首字符相同（3.0.0 修复）
-        assertEquals("spaces are not the same char as x", score("x-x-x-x"), score("x x x x"));
-        assertEquals("tabs are not the same char as x", score("x-x-x-x"), score("x\tx\tx\tx"));
+        assertTrue("spaces are not the same char as x", score("x xx  xxx   x") > 0);
+        assertTrue("tabs are not the same char as x", score("x\txx\t\txxx\t\t\tx") > 0);
 
-        // 长度按 UTF-16 码元计：一个 emoji 算 2
-        assertEquals("emoji counts as two code units", score("ab😀cd"), score("ab#$cd"));
+        // 有效长度里一个 emoji（代理对）算 1 个字符，与其他非 ASCII 字符同类
+        assertEquals("emoji counts as one character", score("abécd"), score("ab😀cd"));
+
+        // 审查发现的绕过写法（3.0.0 修复）
+        assertTrue("near repeat is not strong", score("Ab1!Ab1!Ab1!x") <= 6);
+        assertTrue("char runs do not add length", score("aaaaaaaaaaaaaaaaaaaaAb1!") <= 6);
+        assertTrue("repeated symbol counts once", score("Pa1!!!!!!!!!!!!") <= 3);
+        assertEquals("fullwidth folds to ascii", score("QWERTY123!a"), score("ＱＷＥＲＴＹ123!a"));
+        assertTrue("non-ascii letters are not symbols", score("Пароль2024") <= 6);
+        assertTrue("year is penalized", score("Summer2024!") < score("Summer2051!"));
+        assertTrue("ddMMyyyy is a date", score("Tom10101988!") < score("Tom10131988!"));
+        assertTrue("keyboard column", score("1qaz2wsx") < score("1qmz7wpx"));
+        assertTrue("pinyin dictionary word", score("Woaini1314!") < score("Wuoqnx1314!"));
 
         // 重复检测必须是线性时间：20 万个 a 加一个 b 这种几乎周期的长输入，不能退化成平方级
         StringBuilder nearlyPeriodic = new StringBuilder();

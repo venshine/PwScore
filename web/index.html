@@ -210,16 +210,16 @@
 
     <section class="info" aria-labelledby="how">
       <h2 id="how" data-i18n="howTitle">How the score works</h2>
-      <p data-i18n="howBody">Every password starts at 0. Mixing character types and adding length raise the score; patterns that attackers try first lower it. A password that is just a shorter piece repeated is scored as that piece.</p>
+      <p data-i18n="howBody">Every password starts at 0. Mixing character types and adding length raise the score; patterns that attackers try first lower it. Repeated characters and repeated pieces only count once, so aaaa or Ab1!Ab1! add little.</p>
       <ul class="rules">
         <li data-i18n="r1">Digits, lowercase, uppercase and symbols</li>
-        <li class="minus" data-i18n="r5">Runs like abcd, 4321 or qwer</li>
-        <li data-i18n="r2">Several of each type, not just one</li>
-        <li class="minus" data-i18n="r6">Dates like 19881010</li>
-        <li data-i18n="r3">More than 12 characters, and 16 or more</li>
-        <li class="minus" data-i18n="r7">Common words like password or admin</li>
-        <li data-i18n="r4">Three or more symbols</li>
-        <li class="minus" data-i18n="r8">Six characters or fewer</li>
+        <li class="minus" data-i18n="r5">Runs and keyboard patterns like abcd, 4321, qwer or 1qaz</li>
+        <li data-i18n="r2">Several different characters of each type</li>
+        <li class="minus" data-i18n="r6">Dates and years like 19881010 or 2024</li>
+        <li data-i18n="r3">Length, with more points at 8, 12, 16, 20 and 24</li>
+        <li class="minus" data-i18n="r7">Common words, even written as p@ssw0rd</li>
+        <li data-i18n="r4">Three or more different symbols</li>
+        <li class="minus" data-i18n="r8">Five characters or fewer, or only a few different ones</li>
       </ul>
       <table class="levels">
         <tbody>
@@ -260,15 +260,15 @@
       try: 'Or try one of these:',
       privacy: 'The score is worked out in this page. Nothing you type leaves your browser.',
       howTitle: 'How the score works',
-      howBody: 'Every password starts at 0. Mixing character types and adding length raise the score; patterns that attackers try first lower it. A password that is just a shorter piece repeated is scored as that piece.',
+      howBody: 'Every password starts at 0. Mixing character types and adding length raise the score; patterns that attackers try first lower it. Repeated characters and repeated pieces only count once, so aaaa or Ab1!Ab1! add little.',
       r1: 'Digits, lowercase, uppercase and symbols',
-      r2: 'Several of each type, not just one',
-      r3: 'More than 12 characters, and 16 or more',
-      r4: 'Three or more symbols',
-      r5: 'Runs like abcd, 4321 or qwer',
-      r6: 'Dates like 19881010',
-      r7: 'Common words like password or admin',
-      r8: 'Six characters or fewer',
+      r2: 'Several different characters of each type',
+      r3: 'Length, with more points at 8, 12, 16, 20 and 24',
+      r4: 'Three or more different symbols',
+      r5: 'Runs and keyboard patterns like abcd, 4321, qwer or 1qaz',
+      r6: 'Dates and years like 19881010 or 2024',
+      r7: 'Common words, even written as p@ssw0rd',
+      r8: 'Five characters or fewer, or only a few different ones',
       spec: 'Read the full rules',
       useTitle: 'Use it in your code',
       useBody: 'PwScore has no dependencies, and gives the same score for the same password in each of these languages:',
@@ -285,15 +285,15 @@
       try: '或者试试这些：',
       privacy: '评分在本页面内完成，你输入的内容不会离开浏览器。',
       howTitle: '评分规则',
-      howBody: '每个密码从 0 分起算。混用多种字符、增加长度会加分；攻击者最先尝试的模式会减分。由更短片段重复组成的密码，按那个片段评分。',
+      howBody: '每个密码从 0 分起算。混用多种字符、增加长度会加分；攻击者最先尝试的模式会减分。连写的字符和重复的片段只算一次，所以 aaaa、Ab1!Ab1! 加不了多少分。',
       r1: '数字、小写、大写和符号',
-      r2: '每类字符不止一个',
-      r3: '超过 12 位，以及达到 16 位',
-      r4: '三个及以上符号',
-      r5: '连续序列，如 abcd、4321、qwer',
-      r6: '日期，如 19881010',
-      r7: '常见词，如 password、admin',
-      r8: '不超过 6 位',
+      r2: '每类字符有多个不同的字符',
+      r3: '长度：8、12、16、20、24 位各多一档',
+      r4: '三个及以上不同的符号',
+      r5: '连续序列和键盘模式，如 abcd、4321、qwer、1qaz',
+      r6: '日期和年份，如 19881010、2024',
+      r7: '常见词，包括 p@ssw0rd 这类写法',
+      r8: '不超过 5 位，或不同字符太少',
       spec: '查看完整规则',
       useTitle: '在代码里使用',
       useBody: 'PwScore 没有任何依赖，同一个密码在下面每种语言里得分都相同：',

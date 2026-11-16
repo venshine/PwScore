@@ -2,16 +2,16 @@
 
 ## 当前状态
 
-- 3.0.0 改造（更名 PwScore，新增 13 种语言实现和在线 demo）已在本地完成，尚未提交、推送和打 tag。
+- 3.0.0：已更名为 PwScore，新增 13 种语言实现和在线 demo，并完成评分规则重做（长度阶梯、有效长度、不同字符计数、非 ASCII 单独成类、字典扩充与替换识别、年份与日期、键盘模式与覆盖率）。评分审查报告见 `.private/reviews/2026-11-16-scoring-loopholes.md`。
 - 版本记录以 `CHANGELOG.md` 和 GitHub Release 为准。
 
 ## 进行中
 
-- 3.0.0 发布（待确认）：
-  - GitHub 仓库改名为 PwScore。
-  - 推送并通过 CI，其中 C# 第一次验证要在 CI 上完成。
-  - 启用 GitHub Pages（Source 选 GitHub Actions）。
-  - 打 `3.0.0` 和 `go/v3.0.0` 两个 tag，发布 GitHub Release，核对 JitPack 构建。
+- 3.0.0 发布：评分重做待提交、推送并等 CI 通过（C# 只能在 CI 验证），之后打 `3.0.0` 和 `go/v3.0.0` 两个 tag，发布 GitHub Release，核对 JitPack 构建和在线 demo。
+
+## 最近完成
+
+- 2026-11-16 12:07 GitHub 仓库改名为 PwScore（旧地址 301 跳转），启用 Pages（GitHub Actions 部署），更新仓库 About；推送 0e668d1，CI 和 Pages 全部通过。
 
 ## 待办
 
@@ -20,8 +20,7 @@
 ## 待确认
 
 - 仓库改名后，旧坐标 `com.github.venshine:CheckPasswordStrength:2.x` 在 JitPack 上是否仍可用。
-- 仓库改名后，GitHub 对旧地址的重定向范围，执行改名前查官方文档核实。
 
 ## 最近验证
 
-- 2026-11-16 12:03 本地全量：`./test.sh` 覆盖 13 种语言，全部通过（C# 本机无工具链，已跳过）；C/C++ 另外用 ASan 和 UBSan 跑过；Kotlin 的 JS、linuxX64、iosArm64 目标编译通过；web demo 用 Playwright 核对了浅色、深色、390px 宽度和中英文，评分与快照一致，控制台无报错。
+- 2026-11-16 14:55 本地全量：`./test.sh` 覆盖 13 种语言，全部通过，179 条快照逐行一致（C# 本机无工具链，已跳过）；Java 参考实现与独立编写的 JS 原型逐条比对 0 差异；C/C++ 用 ASan 和 UBSan 跑过；Kotlin 的 JS、linuxX64、iosArm64 目标编译通过。
