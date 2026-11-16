@@ -11,7 +11,7 @@ PwScore scores how strong a password is, from 0 to 14, and maps the score to one
 
 <img src="screenshot/demo.gif" width="720" alt="PwScore web demo: the score updates as you type" />
 
-[Watch as a video (MP4)](screenshot/demo.mp4)
+[Watch as a video (MP4)](https://venshine.github.io/PwScore/demo.mp4)
 
 | Light | Dark | Phone, Chinese |
 |:---:|:---:|:---:|

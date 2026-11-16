@@ -11,7 +11,7 @@ PwScore 给密码强度打分（0 到 14 分），并换算成五个等级。没
 
 <img src="screenshot/demo.gif" width="720" alt="PwScore 在线 demo：边输入边打分" />
 
-[观看视频（MP4）](screenshot/demo.mp4)
+[观看视频（MP4）](https://venshine.github.io/PwScore/demo.mp4)
 
 | 浅色 | 深色 | 手机、中文 |
 |:---:|:---:|:---:|
