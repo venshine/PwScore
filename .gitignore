@@ -47,3 +47,8 @@ obj/
 # Ruby
 *.gem
 Gemfile.lock
+
+# AI 本地文档
+AGENTS.md
+CLAUDE.md
+ROADMAP.md
