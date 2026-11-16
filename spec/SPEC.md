@@ -51,10 +51,10 @@ This file is the single source of truth for the scoring rules. Every implementat
    | points | -2 | -1 | 0 | +1 | +2 | +3 | +4 | +5 |
 
 3. Subtract for each condition that holds:
-   1. **Sequences.** Subtract 1 for each group in which some 4 consecutive code units of `lower` equal a substring of one of the group's strings. Every position covered by such a window, in any group, is marked as covered.
-      - letters: `abcdefghijklmnopqrstuvwxyz`, `zyxwvutsrqponmlkjihgfedcba`
-      - digits: `01234567890`, `09876543210`
-      - keyboard: `qwertyuiop`, `asdfghjkl`, `zxcvbnm`, `1qaz2wsx3edc4rfv5tgb6yhn7ujm8ik,9ol.0p;/`, `qazwsxedcrfvtgbyhnujmikolp`, `1q2w3e4r5t6y7u8i9o0p`, `q1w2e3r4t5y6u7i8o9p0`, `zaq1xsw2cde3vfr4bgt5nhy6mju7`, `!@#$%^&*()_+`, and the reverse of each of these
+   1. **Sequences.** Subtract 1 for each group in which some 4 consecutive code units of `lower` equal a substring of one of the group's strings or of its reverse. Every position covered by such a window, in any group, is marked as covered.
+      - letters: `abcdefghijklmnopqrstuvwxyz`, `acegikmoqsuwy`, `bdfhjlnprtvxz`
+      - digits: `01234567890`, `02468`, `13579`
+      - keyboard: `qwertyuiop`, `asdfghjkl`, `zxcvbnm`, `1qaz2wsx3edc4rfv5tgb6yhn7ujm8ik,9ol.0p;/`, `qazwsxedcrfvtgbyhnujmikolp`, `1q2w3e4r5t6y7u8i9o0p`, `q1w2e3r4t5y6u7i8o9p0`, `zaq1xsw2cde3vfr4bgt5nhy6mju7`, `!@#$%^&*()_+`
    2. **Mostly sequences.** At least half of the code units are covered (`2 * covered >= n`): subtract 1.
    3. `len < 6 && classes == 1 && (num > 0 || small > 0 || capital > 0)`: subtract 1.
    4. `n % 2 == 0 && same(0, n/2) && same(n/2, n)`: subtract 1.

@@ -27,8 +27,8 @@ static const char *const DICTIONARY[] = {
     "5201314", "520520", "147258", "159753", "147852", "789456", "741852", "963852", "258369", "123321", "112233"};
 
 /* 序列分组，每组以 NULL 结尾，每组命中扣 1 分；匹配时同时检查每个序列的反向 */
-static const char *const SEQ_LETTERS[] = {"abcdefghijklmnopqrstuvwxyz", NULL};
-static const char *const SEQ_DIGITS[] = {"01234567890", NULL};
+static const char *const SEQ_LETTERS[] = {"abcdefghijklmnopqrstuvwxyz", "acegikmoqsuwy", "bdfhjlnprtvxz", NULL};
+static const char *const SEQ_DIGITS[] = {"01234567890", "02468", "13579", NULL};
 static const char *const SEQ_KEYBOARD[] = {"qwertyuiop",
                                            "asdfghjkl",
                                            "zxcvbnm",

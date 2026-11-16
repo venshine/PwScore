@@ -13,7 +13,7 @@ Formerly CheckPasswordStrength. See [Upgrading from 2.x](#upgrading-from-2x).
 
 How it scores
 --
-Mixing character types and adding length raise the score. Runs and keyboard patterns (`abcd`, `4321`, `qwer`, `1qaz`), dates and years (`19881010`, `2024`), about 80 common words and pinyin even when written as `p@ssw0rd`, very short passwords, and passwords made of only a few different characters lower it. Repeated characters and repeated pieces count once, so `aaaa` or `Ab1!Ab1!Ab1!x` gain almost nothing from their length. Fullwidth letters and digits count as their ASCII forms; other non-ASCII characters, including emoji, form a class of their own.
+Mixing character types and adding length raise the score. Runs, every-other runs and keyboard patterns (`abcd`, `4321`, `1357`, `qwer`, `1qaz`), dates and years (`19881010`, `2024`), about 80 common words and pinyin even when written as `p@ssw0rd`, very short passwords, and passwords made of only a few different characters lower it. Repeated characters and repeated pieces count once, so `aaaa` or `Ab1!Ab1!Ab1!x` gain almost nothing from their length. Fullwidth letters and digits count as their ASCII forms; other non-ASCII characters, including emoji, form a class of their own.
 
 | Score | Level |
 |---|---|
@@ -43,7 +43,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.github.venshine:PwScore:3.0.0'
+    implementation 'com.github.venshine:PwScore:3.1.0'
 }
 ```
 
@@ -73,7 +73,7 @@ val level = PwScore.level("2hAj5#mne-ix.86H") // Level.EXTREMELY_STRONG
 Swift Package Manager:
 
 ```swift
-.package(url: "https://github.com/venshine/PwScore.git", from: "3.0.0")
+.package(url: "https://github.com/venshine/PwScore.git", from: "3.1.0")
 // target dependency: .product(name: "PwScore", package: "PwScore")
 ```
 
@@ -108,7 +108,7 @@ dependencies:
     git:
       url: https://github.com/venshine/PwScore.git
       path: dart
-      ref: 3.0.0
+      ref: 3.1.0
 ```
 
 ```dart
@@ -136,7 +136,7 @@ level('2hAj5#mne-ix.86H'); // 'EXTREMELY_STRONG'
 Python 3.8 or later:
 
 ```shell
-pip install "pwscore @ git+https://github.com/venshine/PwScore.git@3.0.0#subdirectory=python"
+pip install "pwscore @ git+https://github.com/venshine/PwScore.git@3.1.0#subdirectory=python"
 ```
 
 ```python
@@ -152,7 +152,7 @@ pwscore.level("2hAj5#mne-ix.86H")  # Level.EXTREMELY_STRONG
 Go 1.18 or later:
 
 ```shell
-go get github.com/venshine/PwScore/go/v3@v3.0.0
+go get github.com/venshine/PwScore/go/v3@v3.1.0
 ```
 
 ```go
@@ -169,7 +169,7 @@ In `Cargo.toml`:
 
 ```toml
 [dependencies]
-pwscore = { git = "https://github.com/venshine/PwScore", tag = "3.0.0" }
+pwscore = { git = "https://github.com/venshine/PwScore", tag = "3.1.0" }
 ```
 
 ```rust
@@ -184,7 +184,7 @@ C99. Add [`c/pwscore.h`](c/pwscore.h) and [`c/pwscore.c`](c/pwscore.c) to your b
 
 ```cmake
 include(FetchContent)
-FetchContent_Declare(pwscore GIT_REPOSITORY https://github.com/venshine/PwScore.git GIT_TAG 3.0.0)
+FetchContent_Declare(pwscore GIT_REPOSITORY https://github.com/venshine/PwScore.git GIT_TAG 3.1.0)
 FetchContent_MakeAvailable(pwscore)
 target_link_libraries(app PRIVATE pwscore)
 ```
@@ -226,7 +226,7 @@ PwLevel level = PwScore.Level("2hAj5#mne-ix.86H"); // PwLevel.ExtremelyStrong
 Ruby 2.6 or later. In your `Gemfile`:
 
 ```ruby
-gem 'pwscore', git: 'https://github.com/venshine/PwScore.git', tag: '3.0.0', glob: 'ruby/*.gemspec'
+gem 'pwscore', git: 'https://github.com/venshine/PwScore.git', tag: '3.1.0', glob: 'ruby/*.gemspec'
 ```
 
 ```ruby

@@ -1,6 +1,6 @@
 name: pwscore
 description: Password strength scoring with no dependencies. Same rules and results in every language PwScore supports.
-version: 3.0.0
+version: 3.1.0
 repository: https://github.com/venshine/PwScore
 
 environment:

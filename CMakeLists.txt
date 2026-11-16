@@ -2,7 +2,7 @@
 #   target_link_libraries(app PRIVATE pwscore)       # C
 #   target_link_libraries(app PRIVATE pwscore::cpp)  # C++17
 cmake_minimum_required(VERSION 3.14)
-project(pwscore VERSION 3.0.0 LANGUAGES C CXX)
+project(pwscore VERSION 3.1.0 LANGUAGES C CXX)
 
 add_library(pwscore STATIC c/pwscore.c)
 target_include_directories(pwscore PUBLIC c)

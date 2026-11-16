@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "io.github.venshine"
-version = "3.0.0"
+version = "3.1.0"
 
 kotlin {
     jvm {

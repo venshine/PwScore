@@ -33,8 +33,8 @@ public enum PwScore {
 
     /// 序列分组，每组命中扣 1 分；每个序列的反向自动加入
     private static let sequences: [[String]] = [
-        ["abcdefghijklmnopqrstuvwxyz"],
-        ["01234567890"],
+        ["abcdefghijklmnopqrstuvwxyz", "acegikmoqsuwy", "bdfhjlnprtvxz"],
+        ["01234567890", "02468", "13579"],
         ["qwertyuiop", "asdfghjkl", "zxcvbnm", "1qaz2wsx3edc4rfv5tgb6yhn7ujm8ik,9ol.0p;/", "qazwsxedcrfvtgbyhnujmikolp",
          "1q2w3e4r5t6y7u8i9o0p", "q1w2e3r4t5y6u7i8o9p0", "zaq1xsw2cde3vfr4bgt5nhy6mju7", "!@#$%^&*()_+"],
     ]

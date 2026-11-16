@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pwscore"
-version = "3.0.0"
+version = "3.1.0"
 description = "Password strength scoring with no dependencies"
 license = { text = "Apache-2.0" }
 requires-python = ">=3.8"

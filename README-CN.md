@@ -13,7 +13,7 @@ PwScore 给密码强度打分（0 到 14 分），并换算成五个等级。没
 
 评分规则
 --
-混用多种字符、增加长度会加分。以下情况会减分：连续序列和键盘模式（`abcd`、`4321`、`qwer`、`1qaz`），日期和年份（`19881010`、`2024`），约 80 个常见英文词和拼音（包括 `p@ssw0rd` 这类替换写法），过短的密码，以及只由少数几种字符组成的密码。连写的字符和重复的片段只算一次，所以 `aaaa`、`Ab1!Ab1!Ab1!x` 靠长度几乎拿不到分。全角字母和数字按对应的半角计；其他非 ASCII 字符（包括 emoji）单独算一类。
+混用多种字符、增加长度会加分。以下情况会减分：连续序列、隔位序列和键盘模式（`abcd`、`4321`、`1357`、`qwer`、`1qaz`），日期和年份（`19881010`、`2024`），约 80 个常见英文词和拼音（包括 `p@ssw0rd` 这类替换写法），过短的密码，以及只由少数几种字符组成的密码。连写的字符和重复的片段只算一次，所以 `aaaa`、`Ab1!Ab1!Ab1!x` 靠长度几乎拿不到分。全角字母和数字按对应的半角计；其他非 ASCII 字符（包括 emoji）单独算一类。
 
 | 分值 | 等级 |
 |---|---|
@@ -43,7 +43,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.github.venshine:PwScore:3.0.0'
+    implementation 'com.github.venshine:PwScore:3.1.0'
 }
 ```
 
@@ -73,7 +73,7 @@ val level = PwScore.level("2hAj5#mne-ix.86H") // Level.EXTREMELY_STRONG
 Swift Package Manager：
 
 ```swift
-.package(url: "https://github.com/venshine/PwScore.git", from: "3.0.0")
+.package(url: "https://github.com/venshine/PwScore.git", from: "3.1.0")
 // target dependency: .product(name: "PwScore", package: "PwScore")
 ```
 
@@ -108,7 +108,7 @@ dependencies:
     git:
       url: https://github.com/venshine/PwScore.git
       path: dart
-      ref: 3.0.0
+      ref: 3.1.0
 ```
 
 ```dart
@@ -136,7 +136,7 @@ level('2hAj5#mne-ix.86H'); // 'EXTREMELY_STRONG'
 Python 3.8 及以上：
 
 ```shell
-pip install "pwscore @ git+https://github.com/venshine/PwScore.git@3.0.0#subdirectory=python"
+pip install "pwscore @ git+https://github.com/venshine/PwScore.git@3.1.0#subdirectory=python"
 ```
 
 ```python
@@ -152,7 +152,7 @@ pwscore.level("2hAj5#mne-ix.86H")  # Level.EXTREMELY_STRONG
 Go 1.18 及以上：
 
 ```shell
-go get github.com/venshine/PwScore/go/v3@v3.0.0
+go get github.com/venshine/PwScore/go/v3@v3.1.0
 ```
 
 ```go
@@ -169,7 +169,7 @@ level, err := pwscore.LevelOf("2hAj5#mne-ix.86H") // pwscore.ExtremelyStrong
 
 ```toml
 [dependencies]
-pwscore = { git = "https://github.com/venshine/PwScore", tag = "3.0.0" }
+pwscore = { git = "https://github.com/venshine/PwScore", tag = "3.1.0" }
 ```
 
 ```rust
@@ -184,7 +184,7 @@ C99。把 [`c/pwscore.h`](c/pwscore.h) 和 [`c/pwscore.c`](c/pwscore.c) 加入�
 
 ```cmake
 include(FetchContent)
-FetchContent_Declare(pwscore GIT_REPOSITORY https://github.com/venshine/PwScore.git GIT_TAG 3.0.0)
+FetchContent_Declare(pwscore GIT_REPOSITORY https://github.com/venshine/PwScore.git GIT_TAG 3.1.0)
 FetchContent_MakeAvailable(pwscore)
 target_link_libraries(app PRIVATE pwscore)
 ```
@@ -226,7 +226,7 @@ PwLevel level = PwScore.Level("2hAj5#mne-ix.86H"); // PwLevel.ExtremelyStrong
 Ruby 2.6 及以上。在 `Gemfile` 中：
 
 ```ruby
-gem 'pwscore', git: 'https://github.com/venshine/PwScore.git', tag: '3.0.0', glob: 'ruby/*.gemspec'
+gem 'pwscore', git: 'https://github.com/venshine/PwScore.git', tag: '3.1.0', glob: 'ruby/*.gemspec'
 ```
 
 ```ruby

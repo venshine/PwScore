@@ -37,8 +37,8 @@ namespace Venshine
         /// <summary>序列分组，每组命中扣 1 分；每个序列的反向自动加入</summary>
         private static readonly string[][] Sequences =
         {
-            new[] { "abcdefghijklmnopqrstuvwxyz" },
-            new[] { "01234567890" },
+            new[] { "abcdefghijklmnopqrstuvwxyz", "acegikmoqsuwy", "bdfhjlnprtvxz" },
+            new[] { "01234567890", "02468", "13579" },
             new[]
             {
                 "qwertyuiop", "asdfghjkl", "zxcvbnm", "1qaz2wsx3edc4rfv5tgb6yhn7ujm8ik,9ol.0p;/",

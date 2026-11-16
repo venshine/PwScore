@@ -64,6 +64,11 @@ public class PwScoreTest {
         assertTrue("keyboard column", score("1qaz2wsx") < score("1qmz7wpx"));
         assertTrue("pinyin dictionary word", score("Woaini1314!") < score("Wuoqnx1314!"));
 
+        // 步长为 2 的数字和字母序列按连续序列扣分（3.1.0）
+        assertEquals("step-2 digits like a run", score("Xk12345!"), score("Xk13579!"));
+        assertTrue("step-2 digits", score("Xk13579!") < score("Xk13597!"));
+        assertTrue("step-2 letters reversed", score("Hq!wusq8x") < score("Hq!wuqs8x"));
+
         // 重复检测必须是线性时间：20 万个 a 加一个 b 这种几乎周期的长输入，不能退化成平方级
         StringBuilder nearlyPeriodic = new StringBuilder();
         for (int i = 0; i < 200000; i++) {

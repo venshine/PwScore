@@ -107,8 +107,8 @@ const _dictionary = [
 
 /// 序列分组，每组命中扣 1 分；每个序列的反向自动加入
 const _sequences = [
-  ['abcdefghijklmnopqrstuvwxyz'],
-  ['01234567890'],
+  ['abcdefghijklmnopqrstuvwxyz', 'acegikmoqsuwy', 'bdfhjlnprtvxz'],
+  ['01234567890', '02468', '13579'],
   [
     'qwertyuiop',
     'asdfghjkl',
